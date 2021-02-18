@@ -20,7 +20,7 @@ import com.ctre.phoenix.motorcontrol.VelocityMeasPeriod;
 
 import com.ctre.phoenix.sensors.PigeonIMU;
 
-public class DriveSubsystems extends SubsystemBase {
+public class DriveSubsystem extends SubsystemBase {
   /** Creates a new DriveSubsystems. */
 
   private static final WPI_TalonFX leftFrontMotor = RobotMap.leftFrontMotor;
@@ -44,11 +44,11 @@ public class DriveSubsystems extends SubsystemBase {
 
   private static final int timeoutMs = 10;
 
-  private final PigeonIMU = RobotMap.drive_imu;
+  private final PigeonIMU imu = RobotMap.drive_imu;
 
   public boolean state_flag_motion_profile = true;
 
-  public DriveSubsystems() {
+  public DriveSubsystem() {
     leftFrontMotor.setNeutralMode(NeutralMode.Coast);
     rightFrontMotor.setNeutralMode(NeutralMode.Coast);
     leftBackMotor.setNeutralMode(NeutralMode.Coast);
@@ -110,26 +110,26 @@ public class DriveSubsystems extends SubsystemBase {
   }
     
   public double getYaw() {
-    double[] ypr = double[3];
+    double[] ypr = new double[3];
     imu.getYawPitchRoll(ypr);
     return ypr[0];
   }
 
   public double getPitch() {
-    double[] ypr = double[3];
+    double[] ypr = new double[3];
     imu.getYawPitchRoll(ypr);
     return ypr[0];
   }
 
   public double getRoll() {
-    double[] ypr = double[3];
+    double[] ypr = new double[3];
     imu.getYawPitchRoll(ypr);
     return ypr[0];
   }
 
   public double ZeroYaw() {
-    int setYaw(0, timeoutMs);
-    imu.setFusedHeading(0. timeoutMs);
+    imu.setYaw(0, timeoutMs);
+    imu.setFusedHeading(0, timeoutMs);
   }
   @Override
   public void periodic() {
