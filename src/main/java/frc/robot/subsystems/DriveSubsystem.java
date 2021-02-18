@@ -23,10 +23,10 @@ import com.ctre.phoenix.sensors.PigeonIMU;
 public class DriveSubsystems extends SubsystemBase {
   /** Creates a new DriveSubsystems. */
 
-  private static final WPI_TalonFX leftMotor = RobotMap.leftFrontMotor;
-  private static final WPI_TalonFX rightMotor = RobotMap.rightFrontMotor;
-  private static final WPI_TalonFX leftMotor = RobotMap.leftBackMotor;
-  private static final WPI_TalonFX rightMotor = RobotMap.rightBackMotor;
+  private static final WPI_TalonFX leftFrontMotor = RobotMap.leftFrontMotor;
+  private static final WPI_TalonFX rightFrontMotor = RobotMap.rightFrontMotor;
+  private static final WPI_TalonFX leftBackMotor = RobotMap.leftBackMotor;
+  private static final WPI_TalonFX rightBackMotor = RobotMap.rightBackMotor;
 
   private static XboxController driveController = Robot.m_robotContainer.driveController;
 
@@ -128,7 +128,7 @@ public class DriveSubsystems extends SubsystemBase {
   }
 
   public double ZeroYaw() {
-    int setYaw(0. timeoutMs);
+    int setYaw(0, timeoutMs);
     imu.setFusedHeading(0. timeoutMs);
   }
   @Override
@@ -142,8 +142,8 @@ public class DriveSubsystems extends SubsystemBase {
     leftBackMotor.set(ControlMode.PercentOutput, 0);
     rightBackMotor.set(ControlMode.PercentOutput, 0);
 
-    leftFrontMotor.set(ControlMode.Follower, leftFrontMotor.getDeviceID());
-    rightFrontMotor.set(ControlMode.Follower, rightFrontMotor.getDeviceID());
+    leftBackMotor.set(ControlMode.Follower, leftFrontMotor.getDeviceID());
+    rightBackMotor.set(ControlMode.Follower, rightFrontMotor.getDeviceID());
   }
 
   public static void drive(double throttle, double rotate) {
@@ -200,11 +200,12 @@ public class DriveSubsystems extends SubsystemBase {
   }
 
   public double distanceTravelledinMeters() {
-    double distanceTravelled = (leftDistanceTravelledinMeters() + rightDistanceTravelledinMeters());
+    double distanceTravelled = (leftDistanceTravelledinMeters() + rightDistanceTravelledinMeters())/ 2;
     return distanceTravelled;
   }
 
   public void resetEncoders() {
-    leftMotor.setSelectedSensorPositions
+    leftFrontMotor.setSelectedSensorPosition(0);
+    rightFrontMotor.setSelectedSensorPosition(0);
   }
 }
