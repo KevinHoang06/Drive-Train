@@ -5,6 +5,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.subsystems.DriveSubsystem;
 
 public class AutoTurn extends CommandBase {
   /** Creates a new AutoTurn. */
@@ -15,6 +16,9 @@ public class AutoTurn extends CommandBase {
   public AutoTurn(final DriveSubsystem subsystem, double heading, double speed) {
     driveSubsystem = subsystem;
     addRequirements(subsystem);
+    driveSubsystem.ZeroYaw();
+    intial_heading = driveSubsystem.getYaw();
+    target_heading = heading;
     
     // Use addRequirements() here to declare subsystem dependencies.
   }
